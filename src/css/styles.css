@@ -50,13 +50,6 @@ th {
     background-color: rgb(232, 231, 231);
 }
 
-caption {
-    font-weight: bold;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    margin-top: 20px;
-}
-
 nav {
     background-color: #1d7bba;
     width: 80%;
@@ -195,4 +188,36 @@ input[type="date"] {
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+}
+
+@media screen and (max-width : 800px) {
+
+    form {
+        width: 80%;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+    }
+
+    main,
+    header,
+    nav {
+        width: 100%;
+    }
+
+    .text {
+        width: 90%;
+    }
+
+}
+
+@media screen and (max-width : 450px) {
+
+    form {
+        border: none;
+    }
+
 }
