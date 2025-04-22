@@ -19,7 +19,13 @@ async function getData() {
     }
 }
 
-getData();
+//Bara hämta och rendera data om tabellen finns.
+//För att undvika fel när all kod ligger i samma JS-fil men används på flera HTML-sidor.
+const table = document.getElementById("workexperienceTable");
+
+if (table) {
+    getData();
+}
 
 //Skriv ut datan på skärmen med en funktion och manipulera DOM
 function renderData(data) {
@@ -34,11 +40,60 @@ function renderData(data) {
             <td>${work.companyname}</td>
             <td>${work.jobtitle}</td>
             <td>${work.location}</td>
-            <td>${work.startdate}</td>
-            <td>${work.enddate}</td>
+            <td>${formatDate(work.startdate)}</td>
+            <td>${formatDate(work.enddate)}</td>
             <td>${work.description}</td>
         `;
 
         tableBody.appendChild(row);
     });
+}
+
+
+//Funktion som adderar data till min databas via mitt formulär.
+const form = document.getElementById("workexperienceForm");
+
+//Kontrollera att forumläret finns och addera en händelselyssnare på knappen.
+if (form) {
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); //Hindra standardfunktion för submit-knapp.
+
+        //Hämta värden från formuläret
+        const newWorkExperience = {
+            companyname: document.getElementById("company").value,
+            jobtitle: document.getElementById("role").value,
+            location: document.getElementById("location").value,
+            startdate: document.getElementById("startDate").value,
+            enddate: document.getElementById("endDate").value,
+            description: document.getElementById("description").value
+        }
+
+        try {
+            const response = await fetch("https://dt207g-moment2-rest.onrender.com/api/workexperience", {
+                //Anger att det är ett POST-anrop
+                method: "POST",
+                //Anger att jag vill skicka JSON-data till min body
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                //Skickar datan, konverterad från objekt till JSON-format. Måste göras vid fetch-anrop.
+                body: JSON.stringify(newWorkExperience)
+            });
+
+            if (!response.ok) throw new Error("Något gick fel vid sparandet.");
+
+            alert("Arbetslivserfarenhet tillagd!");
+            form.reset();
+        } catch (error) {
+            console.error("Fel vid POST:", error);
+            alert("Kunde inte spara.");
+        }
+    });
+}
+
+//Formaterar om datumen på skärmen
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    //Gör om date-onjekt till ISO-sträng och delar upp och plockar bort första delen, innan "T".
+    return date.toISOString().split("T")[0];
 }
