@@ -10,17 +10,36 @@
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li class="option"><a href="index.html">Lista över arbetslivserfarenhet</a></li>
-            <li class="current"><a href="add.html">Lägg till arbete</a></li>
-            <li class="option"><a href="about.html">Om sidan</a></li>
-        </ul>
-    </nav>
+    <header>
+        <h1>Mitt CV</h1>
+        <nav>
+            <ul>
+                <li class="option"><a href="index.html">Startsida</a></li>
+                <li class="current"><a href="add.html">Lägg till arbete</a></li>
+                <li class="option"><a href="about.html">Om sidan</a></li>
+            </ul>
+        </nav>
+    </header>
     <main>
-        <p>
-            Skapa ett formulär för att lägga till nya arbetslivserfarenheter till API:et via POST-metoden.
-        </p>
+        <h2>Lägg till arbete:</h2>
+        <form id="workexperienceForm">
+            <label for="company">Företag:</label><br>
+            <input type="text" id="company" name="company" required><br>
+
+            <label for="role">Roll:</label><br>
+            <input type="text" id="role" name="role" required><br>
+
+            <label for="startDate">Startdatum:</label><br>
+            <input type="date" id="startDate" name="startDate" required><br>
+
+            <label for="endDate">Slutdatum:</label><br>
+            <input type="date" id="endDate" name="endDate" required><br>
+
+            <label for="description">Företag:</label><br>
+            <textarea id="description" name="description" rows="5"></textarea><br>
+
+            <button type="submit">SPARA</button>
+        </form>
     </main>
 </body>
 
