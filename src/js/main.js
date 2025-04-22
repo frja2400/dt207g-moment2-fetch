@@ -43,7 +43,14 @@ function renderData(data) {
             <td>${formatDate(work.startdate)}</td>
             <td>${formatDate(work.enddate)}</td>
             <td>${work.description}</td>
+            <td><button class="deleteBtn">RADERA</button></td>
         `;
+
+        //Lägg till händelselyssnare för radera-knappen
+        const deleteButton = row.querySelector(".deleteBtn");
+        deleteButton.addEventListener("click", function () {
+            deleteWorkExperience(work.id, row);     //Anropa delete-funktionen.
+        });
 
         tableBody.appendChild(row);
     });
@@ -96,4 +103,22 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     //Gör om date-onjekt till ISO-sträng och delar upp och plockar bort första delen, innan "T".
     return date.toISOString().split("T")[0];
+}
+
+//Funktion som raderar data
+async function deleteWorkExperience(id, row) {
+    try {
+        const response = await fetch(`https://dt207g-moment2-rest.onrender.com/api/workexperience/${id}`, {
+            method: "DELETE",
+        });
+
+        if (!response.ok) throw new Error("Kunde inte radera posten");
+
+        //Ta bort från DOM efter att det är raderat från servern
+        row.remove();
+        alert("Arbetslivserfarenhet raderad!");
+    } catch (error) {
+        console.error("Fel vid radering:", error);
+        alert("Kunde inte radera posten.");
+    }
 }
