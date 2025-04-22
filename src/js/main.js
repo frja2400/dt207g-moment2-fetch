@@ -3,7 +3,7 @@
 //Adderar en funktion som visar meddelande när min render-databas får i viloläge.
 function showLoadingMessage() {
     const tableBody = document.getElementById("workexperienceTable");
-    tableBody.innerHTML = `<tr><td colspan="6">Laddar data...</td></tr>`;
+    tableBody.innerHTML = `<tr><td colspan="7">Laddar data...</td></tr>`;
 }
 
 //Asynkron funktion med try/catch för att hämta ut min data. 
@@ -43,12 +43,12 @@ function renderData(data) {
 
         //Addera varje egenskap från de egenskaperna som finns i mitt objekt i API:et.
         row.innerHTML = `
-            <td>${work.companyname}</td>
-            <td>${work.jobtitle}</td>
-            <td>${work.location}</td>
-            <td>${formatDate(work.startdate)}</td>
-            <td>${formatDate(work.enddate)}</td>
-            <td>${work.description}</td>
+            <td data-label="Företag">${work.companyname}</td>
+            <td data-label="Roll">${work.jobtitle}</td>
+            <td data-label="Stad">${work.location}</td>
+            <td data-label="Startdaum">${formatDate(work.startdate)}</td>
+            <td data-label="Slutdatum">${formatDate(work.enddate)}</td>
+            <td data-label="Beskrivning">${work.description}</td>
             <td><button class="deleteBtn">RADERA</button></td>
         `;
 
