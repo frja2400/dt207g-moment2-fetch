@@ -1,8 +1,14 @@
 "use strict";
 
+//Adderar en funktion som visar meddelande när min render-databas får i viloläge.
+function showLoadingMessage() {
+    const tableBody = document.getElementById("workexperienceTable");
+    tableBody.innerHTML = `<tr><td colspan="6">Laddar data...</td></tr>`;
+}
+
 //Asynkron funktion med try/catch för att hämta ut min data. 
 async function getData() {
-
+    showLoadingMessage();
     try {
 
         const response = await fetch("https://dt207g-moment2-rest.onrender.com/api/workexperience");
